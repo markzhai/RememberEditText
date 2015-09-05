@@ -9,3 +9,7 @@ RememberEditText simply puts its cache in SharedPreference, and keeps a local ha
 
 ## Usage
 // not fin yet
+
+## TODO
+- Add more hint mode.
+- Enable pair mode, like username/password.

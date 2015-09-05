@@ -32,3 +32,5 @@ gradle/
 /build
 /captures
 *.iml
+/library/*.iml
+/app/*.iml

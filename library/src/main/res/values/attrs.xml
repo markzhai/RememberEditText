@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RememberEditText">
+        <attr name="rememberId" format="string" />
+        <attr name="rememberCount" format="integer" />
+        <attr name="autoFill" format="boolean" />
+        <attr name="dropDownIcon" format="reference" />
+        <attr name="deleteIcon" format="reference" />
+    </declare-styleable>
+</resources>
