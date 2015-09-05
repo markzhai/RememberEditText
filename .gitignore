@@ -31,3 +31,4 @@ gradle/
 .DS_Store
 /build
 /captures
+*.iml
