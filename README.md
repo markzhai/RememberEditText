@@ -13,3 +13,4 @@ RememberEditText simply puts its cache in SharedPreference, and keeps a local ha
 ## TODO
 - Add more hint mode.
 - Enable pair mode, like username/password.
+- Center gravity is not supported yet, need help (icon is missing when set center gravity).
