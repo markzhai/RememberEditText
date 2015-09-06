@@ -3,6 +3,7 @@ package cn.zhaiyifan.rememberedittext;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.EditText;
@@ -19,15 +20,18 @@ public class RememberEditText extends EditText {
 
     private static final int DEFAULT_REMEMBER_COUNT = 3;
     private static final int ICON_MARGIN = 10;
+    private static PersistedMap mCacheMap;
 
     public RememberEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(attrs);
+        initCacheMap(context);
     }
 
     public RememberEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(attrs);
+        initCacheMap(context);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -72,14 +76,30 @@ public class RememberEditText extends EditText {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (focused) {
+            // restore last recent input
+            String cache = mCacheMap.get(mRememberId);
+            setText(cache);
+        } else {
+            // if have text, save it
+            String text = getText().toString();
+            mCacheMap.put(mRememberId, text);
+        }
+    }
+
+    private static void initCacheMap(Context context) {
+        if (mCacheMap == null) {
+            mCacheMap = new PersistedMap(context, PREFERENCE_KEY);
+        }
     }
 
     /**
      * Clear all cache managed by RememberEditText.
      */
-    public static void clearCache() {
-
+    public static void clearCache(Context context) {
+        initCacheMap(context);
+        mCacheMap.clear();
     }
 }
