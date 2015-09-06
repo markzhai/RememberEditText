@@ -1,8 +1,10 @@
 # RememberEditText
 A EditText which can remember last input, free developer from managing cache everywhere themselves.
 
+[中文版](https://github.com/markzhai/RememberEditText/blob/master/README_CN.md "中文版")
+
 ## Introduction
-Have you been annoyed with entering the same stuff once and once like username, thread-reply? RememberEditText can remember the last several input automatically and offers directly choose them.
+Have you been annoyed with entering the same stuff once and once like username, thread-reply? RememberEditText can remember the last several input automatically and offers a dropdown list to let user choose.
 
 ## How
 RememberEditText simply puts its cache in SharedPreference, and keeps a local hashmap version to free from visiting SharedPreference everytime, thus speeds up its looks up and update.
@@ -45,3 +47,4 @@ styles:
 - Add more hint mode.
 - Enable pair mode, like username/password.
 - Center gravity is not supported yet, need help (icon is missing when set center gravity).
+- Add encrpytion mode to save stuff like password (low priority).
