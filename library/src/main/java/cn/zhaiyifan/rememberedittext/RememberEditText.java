@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.EditText;
 
 public class RememberEditText extends EditText {
@@ -19,25 +20,26 @@ public class RememberEditText extends EditText {
     private Drawable mDropDownDrawable;
 
     private static final int DEFAULT_REMEMBER_COUNT = 3;
-    private static final int ICON_MARGIN = 10;
+    private static final int ICON_MARGIN = 20;
     private static PersistedMap mCacheMap;
 
     public RememberEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(attrs);
         initCacheMap(context);
+        initData();
     }
 
     public RememberEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(attrs);
         initCacheMap(context);
+        initData();
     }
 
     private void initAttrs(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RememberEditText);
         try {
-
             mDeleteDrawable = getResources().getDrawable(a.getResourceId(
                     R.styleable.RememberEditText_deleteIcon, R.drawable.abc_ic_clear_mtrl_alpha));
             if (mDeleteDrawable != null) {
@@ -63,30 +65,48 @@ public class RememberEditText extends EditText {
         }
     }
 
+    /**
+     * restore last recent input
+     */
+    private void initData() {
+        if (mAutoFill) {
+            String cache = mCacheMap.get(mRememberId);
+            setText(cache);
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
         canvas.translate(getMeasuredWidth() - mDropDownDrawable.getIntrinsicWidth()
-                - mDeleteDrawable.getIntrinsicWidth() - ICON_MARGIN, 0);
+                - mDeleteDrawable.getIntrinsicWidth() - ICON_MARGIN, getPaddingTop());
         mDeleteDrawable.draw(canvas);
         canvas.translate(mDeleteDrawable.getIntrinsicWidth() + ICON_MARGIN, 0);
         mDropDownDrawable.draw(canvas);
         canvas.restore();
     }
 
+    /**
+     * Store text to cache when focus lost.
+     */
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (focused) {
-            // restore last recent input
-            String cache = mCacheMap.get(mRememberId);
-            setText(cache);
-        } else {
+        // lose focus
+        if (!focused) {
             // if have text, save it
             String text = getText().toString();
             mCacheMap.put(mRememberId, text);
         }
+    }
+
+    /**
+     * Interrupt onTouchEvent, check icon click event.
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 
     private static void initCacheMap(Context context) {
