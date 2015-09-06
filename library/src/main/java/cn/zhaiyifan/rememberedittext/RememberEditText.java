@@ -79,10 +79,19 @@ public class RememberEditText extends EditText {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        canvas.translate(getMeasuredWidth() - mDropDownDrawable.getIntrinsicWidth()
-                - mDeleteDrawable.getIntrinsicWidth() - ICON_MARGIN, getPaddingTop());
+
+        final int compoundPaddingTop = getCompoundPaddingTop();
+        final int compoundPaddingBottom = getCompoundPaddingBottom();
+
+        int vspace = getBottom() - getTop() - compoundPaddingBottom - compoundPaddingTop;
+        int drawableHeight = mDeleteDrawable.getIntrinsicHeight();
+        int dropDownWidth = mDropDownDrawable.getIntrinsicWidth();
+        int deleteWidth = mDeleteDrawable.getIntrinsicWidth();
+
+        canvas.translate(getMeasuredWidth() - getCompoundPaddingRight() - dropDownWidth - ICON_MARGIN - deleteWidth,
+                getCompoundPaddingTop() + getScrollY() + (vspace - drawableHeight) / 2);
         mDeleteDrawable.draw(canvas);
-        canvas.translate(mDeleteDrawable.getIntrinsicWidth() + ICON_MARGIN, 0);
+        canvas.translate(deleteWidth + ICON_MARGIN, 0);
         mDropDownDrawable.draw(canvas);
         canvas.restore();
     }

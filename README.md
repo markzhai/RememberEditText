@@ -48,3 +48,4 @@ styles:
 - Enable pair mode, like username/password.
 - Center gravity is not supported yet, need help (icon is missing when set center gravity).
 - Add encrpytion mode to save stuff like password (low priority).
+- Support RTL (Right to Left).
