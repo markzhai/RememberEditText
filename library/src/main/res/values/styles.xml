@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RememberEditTextPopupWindowAnim">
+        <item name="android:windowEnterAnimation">@anim/popup_window_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_hide</item>
+    </style>
+</resources>
