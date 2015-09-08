@@ -5,9 +5,11 @@
         <attr name="autoFill" format="boolean" />
         <!-- auto save to cache, by default true -->
         <attr name="autoSave" format="boolean" />
-        <!-- dropdown icon to choose between cache values, by default use abc_spinner_mtrl_am_alpha -->
+        <!-- drop down icon to choose between cache values, by default use ic_drop_down -->
         <attr name="dropDownIcon" format="reference" />
-        <!-- delete icon to delete cache value, by default use abc_ic_clear_mtrl_alpha -->
+        <!-- drop up icon to choose between cache values, by default use ic_drop_up -->
+        <attr name="dropUpIcon" format="reference" />
+        <!-- delete icon to delete cache value, by default use ic_delete -->
         <attr name="deleteIcon" format="reference" />
         <!-- id of cache, will use view id if not set -->
         <attr name="rememberId" format="string" />

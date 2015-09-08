@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popupWrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/remember_item_height"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="@drawable/drop_down_bg"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp">
+
+    <ImageView
+        android:id="@+id/popupDelete"
+        android:layout_width="33dp"
+        android:layout_height="@dimen/remember_item_height"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="center"
+        android:src="@drawable/ic_delete" />
+
+    <TextView
+        android:id="@+id/popupContent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/remember_item_height"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="33dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+</RelativeLayout>
