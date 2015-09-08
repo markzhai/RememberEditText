@@ -104,7 +104,21 @@ public class RememberEditText extends EditText {
         if (mAutoFill) {
             String cache = mCacheMap.get(mRememberId);
             setText(cache);
+            onCacheDataChanged();
         }
+    }
+
+    private void onCacheDataChanged() {
+
+    }
+
+    /**
+     * Do cache flush jobs when view detached.
+     */
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
     }
 
     @Override
@@ -124,10 +138,21 @@ public class RememberEditText extends EditText {
         int offsetY = getCompoundPaddingTop() + getScrollY() + (vspace - drawableHeight) / 2;
 
         canvas.translate(offsetX, offsetY);
-        mDeleteDrawable.draw(canvas);
+        if (getText() != null && getText().length() != 0) {
+            mDeleteDrawable.draw(canvas);
+        }
 
         canvas.translate(deleteWidth + ICON_MARGIN, 0);
-        mDropDownDrawable.draw(canvas);
+        switch (mIconStatus) {
+            case ICON_SHOW_DROP_DOWN:
+                mDropDownDrawable.draw(canvas);
+                break;
+            case ICON_SHOW_DROP_UP:
+                mDropUpDrawable.draw(canvas);
+                break;
+            case ICON_ABSENT:
+                break;
+        }
 
         mDeleteIconRect.set(offsetX, offsetY, offsetX + deleteWidth, offsetY + drawableHeight);
         mDropDownIconRect.set(offsetX + deleteWidth + ICON_MARGIN, offsetY,
@@ -171,6 +196,7 @@ public class RememberEditText extends EditText {
                     disMissOrUpdatePopupWindow();
                 }
             } else if (mDeleteIconRect.contains(x, y)) {
+                setText("");
                 handled = true;
             }
         }
@@ -272,10 +298,6 @@ public class RememberEditText extends EditText {
         return true;
     }
 
-    private void resetDropView() {
-
-    }
-
     /**
      * RememberEditText's dropdown list adapter.
      */
@@ -335,7 +357,7 @@ public class RememberEditText extends EditText {
                             mCacheDataList.remove(position);
                         }
                         if (mCacheDataList == null || (mCacheDataList != null && mCacheDataList.size() < 1)) {
-                            resetDropView();
+                            onCacheDataChanged();
                         }
                         if (getText().toString().trim().equalsIgnoreCase(cacheData)) {
                             setText("");
@@ -364,6 +386,7 @@ public class RememberEditText extends EditText {
             View wrapper;
             TextView view;
             ImageView button;
+
             void setId(int position) {
                 view.setId(position);
                 button.setId(position);

@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">RememberEditText</string>
+    <string name="app_name">RememberEditText Demo</string>
 
     <string name="login">Login</string>
-    <string name="title_activity_thread">ThreadActivity</string>
+    <string name="clearCache">Clear cache!!</string>
+    <string name="title_activity_thread">Post</string>
 </resources>
