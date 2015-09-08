@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class RememberEditText extends EditText {
@@ -45,9 +46,10 @@ public class RememberEditText extends EditText {
     private static final int ICON_SHOW_DROP_UP = 2;
     private static final int ICON_ABSENT = 3;
     private static final int DEFAULT_REMEMBER_COUNT = 3;
-    private static final int ICON_MARGIN = 20;
+    private static final int ICON_MARGIN = 40;
 
     private static PersistedMap mCacheMap;
+    protected List<String> mCacheDataList;
 
     public RememberEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -101,15 +103,36 @@ public class RememberEditText extends EditText {
      * restore last recent input
      */
     private void initData() {
+        mCacheDataList = new LinkedList<>();
+
+        String lastCache = mCacheMap.get(mRememberId);
+
         if (mAutoFill) {
-            String cache = mCacheMap.get(mRememberId);
-            setText(cache);
+            setText(lastCache);
+        }
+
+        if (lastCache != null) {
+            mCacheDataList.add(0, lastCache);
+            // Retrieve all history data
+            for (int i = 1; i < mRememberCount; ++i) {
+                String data = mCacheMap.get(mRememberId + i);
+                if (data != null) {
+                    mCacheDataList.add(i, data);
+                }
+            }
             onCacheDataChanged();
         }
     }
 
+    /**
+     * Called when cached data changed(init or deleted).
+     */
     private void onCacheDataChanged() {
-
+        if (mCacheDataList.size() > 1) {
+            mIconStatus = ICON_SHOW_DROP_DOWN;
+        } else {
+            mIconStatus = ICON_ABSENT;
+        }
     }
 
     /**
@@ -118,7 +141,19 @@ public class RememberEditText extends EditText {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-
+        // if have text, save it
+        String text = getText().toString();
+        // save newest input to default key
+        if (text.length() > 0) {
+            mCacheMap.put(mRememberId, text);
+            if (!text.equals(mCacheDataList.get(0))) {
+                mCacheDataList.add(0, text);
+            }
+        }
+        // flush history
+        for (int i = 1; i < mCacheDataList.size(); ++i) {
+            mCacheMap.put(mRememberId + i, mCacheDataList.get(i));
+        }
     }
 
     @Override
@@ -159,20 +194,6 @@ public class RememberEditText extends EditText {
                 offsetX + deleteWidth + ICON_MARGIN + dropDownWidth, offsetY + drawableHeight);
 
         canvas.restore();
-    }
-
-    /**
-     * Store text to cache when focus lost.
-     */
-    @Override
-    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        // lose focus
-        if (!focused) {
-            // if have text, save it
-            String text = getText().toString();
-            mCacheMap.put(mRememberId, text);
-        }
     }
 
     /**
@@ -223,11 +244,6 @@ public class RememberEditText extends EditText {
     private boolean mKeyboardShown;
     private RememberListAdapter mListAdapter;
     private int mPopupWindowHeight;
-    protected List<String> mCacheDataList;
-
-    public boolean getPopStatus() {
-        return pop != null;
-    }
 
     public void showPopupWindow() {
         // no cache data, return directly
@@ -294,6 +310,11 @@ public class RememberEditText extends EditText {
         }
     }
 
+    /**
+     * Update EditText text after selected
+     * @param position selected position in cached list
+     * @return whether position is legal and event is handled
+     */
     private boolean selectItem(int position) {
         return true;
     }
@@ -304,6 +325,10 @@ public class RememberEditText extends EditText {
     class RememberListAdapter extends BaseAdapter {
 
         LayoutInflater mInflater;
+
+        public RememberListAdapter() {
+            mInflater = LayoutInflater.from(getContext());
+        }
 
         @Override
         public int getCount() {

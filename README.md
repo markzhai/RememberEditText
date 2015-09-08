@@ -44,6 +44,7 @@ styles:
 ```
 
 ## TODO
+- Make cache loading async.
 - Add more hint mode.
 - Enable pair mode, like username/password.
 - Center gravity is not supported yet, need help (icon is missing when set center gravity).
