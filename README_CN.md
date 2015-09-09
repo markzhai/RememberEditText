@@ -2,8 +2,6 @@
 一个自定义EditText View，可以记住该view的最近几次输入，使开发者不用到处去单独做cache逻辑。
 
 ![启动activity后自动填入最新cache](art/Screenshot_2015-09-09-11-08-10.jpg)
-![点击下拉按钮后显示悬浮cache列表](art/Screenshot_2015-09-09-11-04-19.jpg)
-![更大的EditText demo](art/Screenshot_2015-09-09-11-04-25.jpg)
 
 ## 介绍
 你有没有为了需要每次输入相同的内容而感到恼火？这个账号/密码上次不是输过了么，怎么又让我输？我就是想回个帖罢了，怎么每次还得重复输入“感谢分享”、“顶”？
@@ -51,3 +49,7 @@ RememberEditText扩展了EditText，在UI上添加了删除/下拉框，提供�
 - 尚且不支持Gravity设置为Center，图标神奇地不见了，需要深入研究TextView（如果你能帮助就太好了）。
 - 增加输入对模式，如用户名/密码（低优先级）。
 - 增加加密模式来保存敏感信息（低优先级）。
+
+## 截图
+![点击下拉按钮后显示悬浮cache列表](art/Screenshot_2015-09-09-11-04-19.jpg)
+![更大的EditText demo](art/Screenshot_2015-09-09-11-04-25.jpg)
