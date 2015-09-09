@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,12 +42,13 @@ public class RememberEditText extends EditText {
     private Rect mDropDownIconRect = new Rect();
     private Rect mDeleteIconRect = new Rect();
     private int mIconStatus = ICON_ABSENT;
+    private int mIconMargin = 0;
 
     private static final int ICON_SHOW_DROP_DOWN = 1;
     private static final int ICON_SHOW_DROP_UP = 2;
     private static final int ICON_ABSENT = 3;
     private static final int DEFAULT_REMEMBER_COUNT = 3;
-    private static final int ICON_MARGIN = 40;
+    private static final int DEFAULT_ICON_MARGIN_IN_DP = 15;
 
     private static PersistedMap mCacheMap;
     protected List<String> mCacheDataList;
@@ -103,6 +105,10 @@ public class RememberEditText extends EditText {
      * restore last recent input
      */
     private void initData() {
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+        float density = metrics.density;
+        mIconMargin = Math.round(DEFAULT_ICON_MARGIN_IN_DP * density);
+
         mCacheDataList = new LinkedList<>();
 
         String lastCache = mCacheMap.get(mRememberId);
@@ -128,7 +134,7 @@ public class RememberEditText extends EditText {
      * Called when cached data changed(init or deleted).
      */
     private void onCacheDataChanged() {
-        if (mCacheDataList.size() > 1) {
+        if (mCacheDataList.size() >= 1) {
             mIconStatus = ICON_SHOW_DROP_DOWN;
         } else {
             mIconStatus = ICON_ABSENT;
@@ -146,7 +152,7 @@ public class RememberEditText extends EditText {
         // save newest input to default key
         if (text.length() > 0) {
             mCacheMap.put(mRememberId, text);
-            if (!text.equals(mCacheDataList.get(0))) {
+            if (mCacheDataList.isEmpty() || !text.equals(mCacheDataList.get(0))) {
                 mCacheDataList.add(0, text);
             }
         }
@@ -169,7 +175,7 @@ public class RememberEditText extends EditText {
         int dropDownWidth = mDropDownDrawable.getIntrinsicWidth();
         int deleteWidth = mDeleteDrawable.getIntrinsicWidth();
 
-        int offsetX = getMeasuredWidth() - getCompoundPaddingRight() - dropDownWidth - ICON_MARGIN - deleteWidth;
+        int offsetX = getMeasuredWidth() - getCompoundPaddingRight() - dropDownWidth - mIconMargin - deleteWidth;
         int offsetY = getCompoundPaddingTop() + getScrollY() + (vspace - drawableHeight) / 2;
 
         canvas.translate(offsetX, offsetY);
@@ -177,7 +183,7 @@ public class RememberEditText extends EditText {
             mDeleteDrawable.draw(canvas);
         }
 
-        canvas.translate(deleteWidth + ICON_MARGIN, 0);
+        canvas.translate(deleteWidth + mIconMargin, 0);
         switch (mIconStatus) {
             case ICON_SHOW_DROP_DOWN:
                 mDropDownDrawable.draw(canvas);
@@ -190,8 +196,8 @@ public class RememberEditText extends EditText {
         }
 
         mDeleteIconRect.set(offsetX, offsetY, offsetX + deleteWidth, offsetY + drawableHeight);
-        mDropDownIconRect.set(offsetX + deleteWidth + ICON_MARGIN, offsetY,
-                offsetX + deleteWidth + ICON_MARGIN + dropDownWidth, offsetY + drawableHeight);
+        mDropDownIconRect.set(offsetX + deleteWidth + mIconMargin, offsetY,
+                offsetX + deleteWidth + mIconMargin + dropDownWidth, offsetY + drawableHeight);
 
         canvas.restore();
     }
@@ -224,8 +230,11 @@ public class RememberEditText extends EditText {
         return handled || super.onTouchEvent(event);
     }
 
+    /**
+     * Different from {@link Rect}'s contains method, it is more tolerant.
+     */
     private boolean isInRect(Rect rect, int x, int y) {
-        return x > rect.left - 5  && x < rect.right + 5;
+        return x > rect.left - mIconMargin / 2  && x < rect.right + mIconMargin / 2;
     }
 
     private static void initCacheMap(Context context) {
