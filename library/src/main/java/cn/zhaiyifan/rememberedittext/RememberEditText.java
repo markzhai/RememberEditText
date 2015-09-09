@@ -209,19 +209,23 @@ public class RememberEditText extends EditText {
         int y = (int) event.getY();
 
         if (action == MotionEvent.ACTION_UP) {
-            if (mDropDownIconRect.contains(x, y)) {
+            if (isInRect(mDropDownIconRect, x, y)) {
                 handled = true;
                 if (pop == null) {
                     showPopupWindow();
                 } else {
                     disMissOrUpdatePopupWindow();
                 }
-            } else if (mDeleteIconRect.contains(x, y)) {
+            } else if (isInRect(mDeleteIconRect, x, y)) {
                 setText("");
                 handled = true;
             }
         }
         return handled || super.onTouchEvent(event);
+    }
+
+    private boolean isInRect(Rect rect, int x, int y) {
+        return x > rect.left - 5  && x < rect.right + 5;
     }
 
     private static void initCacheMap(Context context) {

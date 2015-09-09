@@ -5,10 +5,9 @@
     android:layout_height="@dimen/remember_item_height"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
-    android:background="@drawable/drop_down_bg"
+    android:background="@color/material_blue_grey_800"
     android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingLeft="15dp">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/popupDelete"
@@ -26,8 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/remember_item_height"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="33dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:textColor="#ffffff"
