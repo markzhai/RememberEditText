@@ -1,8 +1,6 @@
 # RememberEditText
 一个自定义EditText View，可以记住该view的最近几次输入，使开发者不用到处去单独做cache逻辑。
 
-![启动activity后自动填入最新cache](art/Screenshot_2015-09-09-11-08-10.jpg)
-
 ## 介绍
 你有没有为了需要每次输入相同的内容而感到恼火？这个账号/密码上次不是输过了么，怎么又让我输？我就是想回个帖罢了，怎么每次还得重复输入“感谢分享”、“顶”？
 RememberEditText做的就是自动记住最近的几次输入，并提供UI给用户直接选择。
@@ -52,4 +50,5 @@ RememberEditText扩展了EditText，在UI上添加了删除/下拉框，提供�
 
 ## 截图
 ![点击下拉按钮后显示悬浮cache列表](art/Screenshot_2015-09-09-11-04-19.jpg)
+![启动activity后自动填入最新cache](art/Screenshot_2015-09-09-11-08-10.jpg)
 ![更大的EditText demo](art/Screenshot_2015-09-09-11-04-25.jpg)

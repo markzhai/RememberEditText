@@ -3,7 +3,7 @@ A EditText which can remember last input, free developer from managing cache eve
 
 [中文版](https://github.com/markzhai/RememberEditText/blob/master/README_CN.md "中文版")
 
-![Show popup window after dropdown icon clicked](art/Screenshot_2015-09-09-11-04-19.jpg)
+![Show popup window after dropdown icon clicked](art/screenshot.jpg Show popup window after dropdown icon clicked)
 
 ## Introduction
 Have you been annoyed with entering the same stuff once and once like username, thread-reply? RememberEditText can remember the last several input automatically and offers a dropdown list to let user choose.
@@ -54,5 +54,6 @@ styles:
 - Support RTL (Right to Left).
 
 ## Screenshots
+![Show popup window after dropdown icon clicked](art/Screenshot_2015-09-09-11-04-19.jpg)
 ![First start, value auto filled](art/Screenshot_2015-09-09-11-08-10.jpg)
 ![A larger EditText sample](art/Screenshot_2015-09-09-11-04-25.jpg)
