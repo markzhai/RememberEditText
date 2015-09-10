@@ -329,7 +329,12 @@ public class RememberEditText extends EditText {
      * @return whether position is legal and event is handled
      */
     private boolean selectItem(int position) {
-        return true;
+        disMissOrUpdatePopupWindow();
+        if (position >= 0 && mCacheDataList.size() > position) {
+            setText(mCacheDataList.get(position));
+            return true;
+        }
+        return false;
     }
 
     /**
