@@ -9,6 +9,8 @@ RememberEditText做的就是自动记住最近的几次输入，并提供UI给�
 ## 原理
 RememberEditText扩展了EditText，在UI上添加了删除/下拉框，提供删除缓存和选择缓存值的功能。在数据保存上，其内部实现了一个通过SharedPreference存放的PersistedMap，由于实际提供服务的数据来源是内存中的map，所以可以做到快速同步返回，不用依赖于SharedPreference实际操作，加快了查询和更新的速度。
 
+RememberEditText不是一个ViewGroup，而是一个继承了EditText，并自己做绘制和点击处理的view。这也是为了减少view的层级从而避免性能损耗。
+
 ## 使用
 ```xml
 <cn.zhaiyifan.rememberedittext.RememberEditText
