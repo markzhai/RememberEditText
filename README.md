@@ -17,7 +17,7 @@ Cache: RememberEditText simply puts its cache in SharedPreference, and keeps a l
 ## Usage
 
 dependencies {
-    compile 'cn.zhaiyifan.rememberedittext:0.9.0'
+    compile 'cn.zhaiyifan:rememberedittext:0.9.0'
 }
 
 ```xml
