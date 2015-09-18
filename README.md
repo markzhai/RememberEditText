@@ -1,5 +1,5 @@
-# RememberEditText
-[![GitHub release](https://img.shields.io/badge/sample%20apk-0.9.0-brightgreen.svg?style=flat)](https://github.com/markzhai/RememberEditText/releases/download/v0.9.0/app-debug.apk)
+# RememberEditText [![GitHub release](https://img.shields.io/badge/sample%20apk-0.9.0-brightgreen.svg?style=flat)](https://github.com/markzhai/RememberEditText/releases/download/v0.9.0/app-debug.apk) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/cn.zhaiyifan/rememberedittext/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/cn.zhaiyifan/rememberedittext)
+
 An EditText which can remember last input, free developer from managing cache everywhere themselves.
 
 [中文版](https://github.com/markzhai/RememberEditText/blob/master/README_CN.md "中文版")
@@ -15,6 +15,11 @@ View: RememberEditText is an EditText view, but not a viewgroup extends linearla
 Cache: RememberEditText simply puts its cache in SharedPreference, and keeps a local hashmap version to free from visiting SharedPreference everytime, thus speeds up its looks up and update.
 
 ## Usage
+
+dependencies {
+    compile 'cn.zhaiyifan.rememberedittext:0.9.0'
+}
+
 ```xml
 <cn.zhaiyifan.rememberedittext.RememberEditText
     android:id="@+id/username"

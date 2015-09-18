@@ -6,10 +6,6 @@ import android.content.SharedPreferences;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * 一个通过SharedPreference存放的持久化map，由于实际提供服务的数据来源
- * 是内存中的map，所以可以做到同步返回，不用依赖于SharedPreference实际操作完成。
- */
 class PersistedMap {
 
     private static final String KEY_NOT_FOUND_VALUE = "";

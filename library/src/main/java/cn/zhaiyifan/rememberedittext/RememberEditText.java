@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -163,7 +162,7 @@ public class RememberEditText extends EditText {
     }
 
     @Override
-    protected void onDraw(@NonNull Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
 
@@ -207,7 +206,7 @@ public class RememberEditText extends EditText {
      * {@link android.text.method.ArrowKeyMovementMethod} for EditText touch event handle.
      */
     @Override
-    public boolean onTouchEvent(@NonNull MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         // If touch icon fields, intercept event to prevent further handle.
         boolean handled = false;
         final int action = event.getAction();
