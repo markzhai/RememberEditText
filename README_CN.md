@@ -12,6 +12,13 @@ RememberEditText扩展了EditText，在UI上添加了删除/下拉框，提供�
 RememberEditText不是一个ViewGroup，而是一个继承了EditText，并自己做绘制和点击处理的view。这也是为了减少view的层级从而避免性能损耗。
 
 ## 使用
+
+```gradle
+dependencies {
+    compile 'cn.zhaiyifan:rememberedittext:0.9.0'
+}
+```
+
 ```xml
 <cn.zhaiyifan.rememberedittext.RememberEditText
     android:id="@+id/username"

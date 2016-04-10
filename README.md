@@ -16,9 +16,11 @@ Cache: RememberEditText simply puts its cache in SharedPreference, and keeps a l
 
 ## Usage
 
+```gradle
 dependencies {
     compile 'cn.zhaiyifan:rememberedittext:0.9.0'
 }
+```
 
 ```xml
 <cn.zhaiyifan.rememberedittext.RememberEditText
